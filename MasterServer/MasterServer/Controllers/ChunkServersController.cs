@@ -21,14 +21,12 @@ namespace MasterServer.Controllers
             _context = context;
         }
 
-        // GET: api/ChunkServers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<ChunkServer>>> GetChunkServers()
         {
             return await _context.ChunkServers.ToArrayAsync();
         }
 
-        // GET: api/ChunkServers/5
         [HttpGet("{id}")]
         public async Task<ActionResult<ChunkServer>> GetChunkServer(int id)
         {
@@ -42,39 +40,7 @@ namespace MasterServer.Controllers
             return chunkServer;
         }
 
-        // PUT: api/ChunkServers/5
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutChunkServer(int id, ChunkServer chunkServer)
-        {
-            if (id != chunkServer.Id)
-            {
-                return BadRequest();
-            }
 
-            _context.Entry(chunkServer).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ChunkServerExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
-
-            return NoContent();
-        }
-
-        // POST: api/ChunkServers
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<ChunkServer>> PostChunkServer(ChunkServer chunkServer)
         {
@@ -84,7 +50,6 @@ namespace MasterServer.Controllers
             return CreatedAtAction("GetChunkServer", new { id = chunkServer.Id }, chunkServer);
         }
 
-        // DELETE: api/ChunkServers/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteChunkServer(int id)
         {
@@ -98,11 +63,6 @@ namespace MasterServer.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool ChunkServerExists(int id)
-        {
-            return _context.ChunkServers.Any(e => e.Id == id);
         }
     }
 }

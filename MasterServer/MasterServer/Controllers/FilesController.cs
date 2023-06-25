@@ -21,14 +21,12 @@ namespace MasterServer.Controllers
             _context = context;
         }
 
-        // GET: api/Files
         [HttpGet]
         public async Task<ActionResult<IEnumerable<File>>> GetFiles()
         {
             return await _context.Files.ToListAsync();
         }
 
-        // GET: api/Files/5
         [HttpGet("{id}")]
         public async Task<ActionResult<File>> GetFile(int id)
         {
@@ -42,7 +40,6 @@ namespace MasterServer.Controllers
             return file;
         }
 
-        // GET: api/Files/5
         [HttpGet("GetByName/{fileName}")]
         public async Task<ActionResult<File>> GetByName(string fileName)
         {
@@ -56,8 +53,6 @@ namespace MasterServer.Controllers
             return file;
         }
 
-        // POST: api/Files
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<File>> PostFile(File file)
         {
@@ -67,7 +62,6 @@ namespace MasterServer.Controllers
             return CreatedAtAction("GetFile", new { id = file.Id }, file);
         }
 
-        // DELETE: api/Files/5
         [HttpDelete("{fileName}")]
         public async Task<IActionResult> DeleteFile(string fileName)
         {
@@ -85,11 +79,6 @@ namespace MasterServer.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool FileExists(int id)
-        {
-            return _context.Files.Any(e => e.Id == id);
         }
     }
 }

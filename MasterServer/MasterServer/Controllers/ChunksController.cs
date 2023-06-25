@@ -20,14 +20,12 @@ namespace MasterServer.Controllers
             _context = context;
         }
 
-        // GET: api/Chunks/{fileName}
         [HttpGet("GetChunks/{fileName}")]
         public async Task<ActionResult<IEnumerable<Chunk>>> GetChunks(string fileName)
         {
             return await _context.Chunks.Where(chunk => chunk.File.Name == fileName).ToArrayAsync();
         }
 
-        // GET: api/Chunks/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Chunk>> GetChunk(int id)
         {
@@ -41,8 +39,6 @@ namespace MasterServer.Controllers
             return chunk;
         }
 
-        // POST: api/Chunks
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Chunk>> PostChunk(Chunk chunk)
         {
@@ -52,7 +48,6 @@ namespace MasterServer.Controllers
             return CreatedAtAction("GetChunk", new { id = chunk.Id }, chunk);
         }
 
-        // DELETE: api/Chunks/5
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteChunk(int id)
         {
@@ -66,11 +61,6 @@ namespace MasterServer.Controllers
             await _context.SaveChangesAsync();
 
             return NoContent();
-        }
-
-        private bool ChunkExists(int id)
-        {
-            return _context.Chunks.Any(e => e.Id == id);
         }
     }
 }
